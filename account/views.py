@@ -28,7 +28,7 @@ class LoginView(APIView):
         )
 
 class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]  # Ensure the user is authenticated
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         """Handle user logout by blacklisting the refresh token."""
