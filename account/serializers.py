@@ -1,7 +1,7 @@
-from account.utils import *
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -31,9 +31,8 @@ class LoginSerializer(serializers.Serializer):
         if not user.check_password(password):
             raise ValidationError("Incorrect password. Please check your credentials.")
 
-        # Generate JWT tokens using the custom token class
-        refresh = CustomRefreshToken()  # Instantiate the custom token
-        refresh = refresh.for_user(user)  # Pass the user to the token instance
+        # Generate JWT tokens for successful login
+        refresh = RefreshToken.for_user(user)
         attrs['refresh'] = str(refresh)
         attrs['access'] = str(refresh.access_token)
 
