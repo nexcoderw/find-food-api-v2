@@ -32,7 +32,8 @@ class LoginSerializer(serializers.Serializer):
             raise ValidationError("Incorrect password. Please check your credentials.")
 
         # Generate JWT tokens using the custom token class
-        refresh = CustomRefreshToken.for_user(user)
+        refresh = CustomRefreshToken()  # Instantiate the custom token
+        refresh = refresh.for_user(user)  # Pass the user to the token instance
         attrs['refresh'] = str(refresh)
         attrs['access'] = str(refresh.access_token)
 
