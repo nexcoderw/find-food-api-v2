@@ -7,7 +7,7 @@ class CustomRefreshToken(RefreshToken):
         """
         Override the for_user method to include additional fields in the payload.
         """
-        refresh = self.__class__()
+        refresh = self.__class__()  # Create an instance of the custom token
         refresh.payload.update({
             'user_id': user.id,
             'name': user.name,
